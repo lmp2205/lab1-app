@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'cart_manager.dart';
 import 'cart_item_card.dart';
@@ -39,7 +38,6 @@ class CartScreen extends StatelessWidget {
   }
 
   Widget buildCartSummary(CartManager cart, BuildContext context) {
-    
     return Card(
       margin: const EdgeInsets.all(15),
       child: Padding(
