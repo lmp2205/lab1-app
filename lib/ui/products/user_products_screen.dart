@@ -2,9 +2,13 @@
 import 'package:flutter/material.dart';
 import 'user_product_list_tile.dart';
 import 'products_manager.dart';
+import '../share/app_drawer.dart';
+
 
 class UserProductsScreen extends StatelessWidget {
   const UserProductsScreen({super.key});
+  static const routeName = '/user-products';
+
 
   
   Widget build(BuildContext context){
@@ -16,6 +20,7 @@ class UserProductsScreen extends StatelessWidget {
           buildAddButton(),
         ],
       ),
+      drawer: const AppDrawer(),
       body: RefreshIndicator(
         onRefresh: () async => print('refresh products'),
         child: buildUserProductListView(productsManager),
