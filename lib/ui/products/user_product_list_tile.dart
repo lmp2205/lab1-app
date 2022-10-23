@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../models/product.dart';
+import 'products_manager.dart';
 
 class UserProductListTile extends StatelessWidget {
   final Product product;
   const UserProductListTile(
     this.product, {
-      super.key,
-    }
-  );
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return ListTile(
       title: Text(product.title),
       leading: CircleAvatar(
@@ -28,28 +29,33 @@ class UserProductListTile extends StatelessWidget {
     );
   }
 
-
   Widget buildDeleteButton(BuildContext context) {
     return IconButton(
-      onPressed: () async {
-        print('Delete a product');
-      }, 
+      onPressed: () {
+        context.read<ProductsManager>().deleteProduct(product.id!);
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Product deleted',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+      },
       icon: const Icon(Icons.delete),
       color: Theme.of(context).errorColor,
-      );
+    );
   }
 
   Widget buildEditButton(BuildContext context) {
     return IconButton(
-      onPressed: (){
+      onPressed: () {
         print('Go to edit product screen');
-      }, 
+      },
       icon: const Icon(Icons.edit),
       color: Theme.of(context).primaryColor,
-      );
+    );
   }
-
-  
-
-
 }
