@@ -82,4 +82,6 @@ class ProductsManager with ChangeNotifier {
     _items.removeAt(index);
     notifyListeners();
   }
+
+
 }

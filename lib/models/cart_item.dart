@@ -14,13 +14,13 @@ class CartItem {
   CartItem copyWith({
     String? id,
     String? title,
-    int? quantily,
-    double? price,
+    int? quantify,
+    double? price, required int quantity,
   }) {
     return CartItem(
         id: id ?? this.id,
         title: title ?? this.title,
-        quantity: quantily ?? this.quantity,
+        quantity: quantify ?? this.quantity,
         price: price ?? this.price);
   }
 }
