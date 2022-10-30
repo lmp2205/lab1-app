@@ -158,7 +158,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         if (double.tryParse(value) == null) {
           return 'Pls enter a valid number';
         }
-        if (double.parse(value) >= 0) {
+        if (double.parse(value) <= 0) {
           return 'Pls enter a number greater than zero';
         }
 
