@@ -41,7 +41,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   @override
- void initState() {
+  void initState() {
     _imageUrlFocusNode.addListener(() {
       if (!_imageUrlFocusNode.hasFocus) {
         if (!_isValidImageUrl(_imageUrlController.text)) {
@@ -62,13 +62,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
     super.dispose();
   }
 
- Future<void> _saveForm() async {
+  Future<void> _saveForm() async {
     final isValid = _editForm.currentState!.validate();
     if (!isValid) {
       return;
     }
     _editForm.currentState!.save();
-    
+
     setState(() {
       _isLoading = true;
     });
@@ -76,9 +76,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
     try {
       final productsManager = context.read<ProductsManager>();
       if (_editedProduct.id != null) {
-        productsManager.updateProduct(_editedProduct);
+        await productsManager.updateProduct(_editedProduct);
       } else {
-        productsManager.addProduct(_editedProduct);
+        await productsManager.addProduct(_editedProduct);
       }
     } catch (error) {
       await showErrorDialog(context, 'Something went wrong.');
@@ -94,37 +94,29 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Product'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: _saveForm,
-          ),
-        ],
-      ),
-      body: _isLoading
-          ? const Center(
-            child: CircularProgressIndicator()
-          )
-          : Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _editForm,
-              child: ListView(
-                children: <Widget>[
-                  buildTitleField(),
-                  buildPriceField(),
-                  buildDescriptionField(),
-                  buildProductPreview(),
-                ]
-              )
-            )
-          )
-    );
+        appBar: AppBar(
+          title: const Text('Edit Product'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.save),
+              onPressed: _saveForm,
+            ),
+          ],
+        ),
+        body: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                    key: _editForm,
+                    child: ListView(children: <Widget>[
+                      buildTitleField(),
+                      buildPriceField(),
+                      buildDescriptionField(),
+                      buildProductPreview(),
+                    ]))));
   }
 
   TextFormField buildTitleField() {
@@ -248,4 +240,3 @@ class _EditProductScreenState extends State<EditProductScreen> {
     );
   }
 }
-

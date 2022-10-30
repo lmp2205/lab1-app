@@ -107,6 +107,7 @@ class ProductsService extends FirebaseService {
       return false;
     }
   }
+  
 
   Future<bool> saveFavoriteStatus(Product product) async {
     try {
